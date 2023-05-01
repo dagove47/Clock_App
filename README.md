@@ -1,2 +1,2 @@
 # Clock_App
- Clock, StopWatch and Timer
+ Clock, Stopwatch and Timer
