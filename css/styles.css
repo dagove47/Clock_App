@@ -23,6 +23,14 @@ body {
     height: 100%;
 }
 
+.hide {
+    visibility: hidden;
+}
+
+.show {
+    visibility: visible;
+}
+
 .selectBtn,
 .options,
 .time,
@@ -71,14 +79,17 @@ body {
 
 .options > li {
     margin: 10px;
-    background: #F26849;
     border-radius: 15px;
     padding: 5px 10px;
+    box-shadow: 0 0 10px 3px #F26849;
 }
 
 .options > li:hover {
-    background: none;
-    box-shadow: 0 0 10px 3px #F26849;
+    background: #F26849;
+}
+
+.activeOpt {
+    background: #F26849;
 }
 
 .time {
@@ -92,7 +103,7 @@ body {
 .number {
     margin: 2px;
     box-shadow: 0 0 10px 3px #F26849;
-    width: 3rem;
+    width: 6rem;
     height: 3rem;
     font-weight: 700;
     font-size: 2.5rem;
@@ -102,13 +113,12 @@ body {
     flex-direction: column;
 }
 
-.upArrow, .downArrow {
+.arrow {
     font-size: 1.5rem;
     color: #F2784B;
 }
 
-.upArrow:hover,
-.downArrow:hover {
+.arrow:hover {
     color: #FFF;
 }
 
@@ -178,15 +188,16 @@ body {
     .title {
         font-size: 4rem;
     }
+
     .number {
         margin: 5px;
-        width: 6.5rem;
+        width: 13rem;
         height: 6.5rem;
         font-weight: 700;
         font-size: 5rem;
     }
 
-    .upArrow, .downArrow {
+    .arrow {
         font-size: 2.5rem;
     }
 

@@ -1,44 +1,64 @@
 
-const clock = document.getElementById('clock');
-const stopWatch = document.getElementById('stopWatch');
-const timer = document.getElementById('timer');
-const downArrow = document.getElementsByClassName('downArrow');
-const upArrow = document.getElementsByClassName("upArrow");
-const number = document.getElementsByClassName("number");
+const clockId = document.getElementById('clock');
+const stopWatchId = document.getElementById('stopWatch');
+const timerId = document.getElementById('timer');
+const options = document.querySelector('.options');
+const arrow = document.getElementsByClassName('arrow');
+const number = document.querySelector(".number");
 
-let tensHours = 0;
-let unitsHours = 0;
-let tensMinutes = 0;
-let unitsMinutes = 0;
-let tensSeconds = 0;
-let unitsSeconds = 0;
+let numHours = 0;
+let numMinutes = 0;
+let numSeconds = 0;
 
 
-// upArrow.addEventListener("click", () => {
-//     // number[0].textContent = "1";
-//     console.log(upArrow.childElementCount);
-// })
+function clock() {
+    removeActiveOpt();
+    clockId.classList.add('activeOpt');
+    removeArrows();
+    
+}
 
+function stopWatch() {
+    removeActiveOpt();
+    stopWatchId.classList.add('activeOpt');
+    removeArrows();
+}
+
+function timer() {
+    removeActiveOpt();
+    timerId.classList.add('activeOpt');
+    removeArrows();
+}
+
+function removeActiveOpt() {
+    clockId.classList.remove('activeOpt');
+    stopWatchId.classList.remove('activeOpt');
+    timerId.classList.remove('activeOpt');   
+}
+
+function removeArrows() {
+    if (timerId.classList.contains('activeOpt')) {
+        for (let i = 0; arrow.length > i; i++) {
+            arrow[i].classList.remove('hide');
+        }
+    } else {
+        for (let i = 0; arrow.length > i; i++) {
+            arrow[i].classList.add('hide');
+        }
+    }
+}
 
 function increaseNum() {
     let numId = window.event.target.nextElementSibling.id;
     switch (numId) {
-        case 'tensHours':
+        case 'numHours':
             console.log('test');
+            console.log(new Date().getMinutes());
             break;
-        case 'unitsHours':
+        case 'numMinutes':
             // sss
             break;
-        case 'tensMinutes':
-            // sss
-            break;
-        case 'unitsMinutes':
-            // sss
-            break;
-        case 'tensSeconds':
-            // sss
-            break;
-        case 'unitsSeconds':
+        case 'numSeconds':
             // sss
             break;
     }
@@ -64,8 +84,12 @@ function decreaseNum() {
 
 
 
+clock();
 
-
+// upArrow.addEventListener("click", () => {
+//     // number[0].textContent = "1";
+//     console.log(upArrow.childElementCount);
+// })
 
 
 
