@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
 
+:root {
+    --orange: #F26849;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -64,32 +68,32 @@ body {
 
 @keyframes glow {
     from {
-        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #F26849, 0 0 20px #F26849, 0 0 25px #F26849, 0 0 30px #F26849, 0 0 35px #F26849;
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px var(--orange), 0 0 20px var(--orange), 0 0 25px var(--orange), 0 0 30px var(--orange), 0 0 35px var(--orange);
     }
 
     to {
-        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #F26849, 0 0 40px #F26849, 0 0 50px #F26849, 0 0 60px #F26849, 0 0 70px #F26849;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px var(--orange), 0 0 40px var(--orange), 0 0 50px var(--orange), 0 0 60px var(--orange), 0 0 70px var(--orange);
     }
 }
 
 .options {
     flex-wrap: wrap;
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .options > li {
     margin: 10px;
     border-radius: 15px;
     padding: 5px 10px;
-    box-shadow: 0 0 10px 3px #F26849;
+    box-shadow: 0 0 10px 3px var(--orange);
 }
 
 .options > li:hover {
-    background: #F26849;
+    background: var(--orange);
 }
 
 .activeOpt {
-    background: #F26849;
+    background: var(--orange);
 }
 
 .time {
@@ -102,11 +106,11 @@ body {
 
 .number {
     margin: 2px;
-    box-shadow: 0 0 10px 3px #F26849;
+    box-shadow: 0 0 10px 3px var(--orange);
     width: 6rem;
-    height: 3rem;
+    height: 4rem;
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 .digitBox {
@@ -131,20 +135,20 @@ body {
 }
 
 .funcBts > div {
-    height: 100px;
-    width: 100px;
+    height: 75px;
+    width: 75px;
     margin: 75px 0;
     border-radius: 50%;
-    box-shadow: 0 0 10px 5px #F26849;
+    box-shadow: 0 0 10px 5px var(--orange);
 }
 
 .funcBts > div:hover {
-    background: #F26849;
+    background: var(--orange);
 }
 
 .funcBts > div > p {
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .footer {
@@ -153,7 +157,7 @@ body {
     left: 0;
     height: 10vh;
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-style: italic;
 }
 
@@ -162,7 +166,7 @@ body {
 }
 
 .footer a {
-    color: #F26849;
+    color: var(--orange);
 }
 
 .footer a:hover {
@@ -189,6 +193,10 @@ body {
         font-size: 4rem;
     }
 
+    .options {
+        font-size: 1.3rem;
+    }
+
     .number {
         margin: 5px;
         width: 13rem;
@@ -203,5 +211,14 @@ body {
 
     .decimalPts {
         font-size: 5rem;
+    }
+
+    .funcBts > div {
+        height: 100px;
+        width: 100px;
+    }
+
+    .funcBts > div > p {
+        font-size: 1.5rem;
     }
 }

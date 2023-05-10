@@ -9,14 +9,20 @@ const numHours = document.getElementById('numHours');
 const numMinutes = document.getElementById('numMinutes');
 const numSeconds = document.getElementById('numSeconds');
 const restart = document.querySelector('.restart');
+const pause = document.querySelector('.pause');
 const start = document.querySelector('.start');
 
 let hours = 0;
 let minutes = 0;
 let seconds = 0;
+let totalSec = 1;
 let clockInterval;
+let stopWatchInterval;
+let timerInterval;
+let isPause = true;
 
 function clock() {
+    clearIntervals();
     removeActiveOpt();
     clockId.classList.add('activeOpt');
     removeArrows();
@@ -26,34 +32,71 @@ function clock() {
         hours = (new Date().getHours() > 9) ?  new Date().getHours() : ('0' + new Date().getHours());
         minutes = (new Date().getMinutes() > 9) ?  new Date().getMinutes() : ('0' + new Date().getMinutes());
         seconds = (new Date().getSeconds() > 9) ?  new Date().getSeconds() : ('0' + new Date().getSeconds());
-        numHours.innerText = hours;
-        numMinutes.innerText = minutes;
-        numSeconds.innerText = seconds;
-    }, 1000);
-}
-
-function stopClock() {
-    clearInterval(clockInterval);
+        insertTime();
+    }, 100);
 }
 
 function stopWatch() {
+    clearIntervals();
     removeActiveOpt();
     stopWatchId.classList.add('activeOpt');
     removeArrows();
     removeFuncBts();
-    stopClock();
 
-    hours = 00;
-    minutes = 0;
-    seconds = 0;
-
-    numHours.innerText = hours;
-    numMinutes.innerText = minutes;
-    numSeconds.innerText = seconds;
+    stopWatchInterval = setInterval(() => {
+        if (!isPause) {
+            if (totalSec % 60 === 0) {
+                minutes >= 59? (minutes = 0) : minutes++;
+                minutes = minutes > 9 ? minutes : ('0' + minutes);
+            }
+            if (totalSec % 3600 === 0) {
+                hours >= 24? (hours = 0) : hours++;
+                hours = hours > 9 ? hours : ('0' + hours);
+            }
+            seconds >= 59? (seconds = 0) : seconds++;
+            seconds = seconds > 9 ? seconds : ('0' + seconds);
+            totalSec++;
+            insertTime();
+        }
+    }, 1000);
 
 }
 
+function pauseTime() {
+    isPause = true;
+}
+
+function startTime() {
+    isPause = false;
+}
+
+function clearIntervals() {
+    clearInterval(clockInterval);
+    clearInterval(stopWatchInterval);
+    // clearInterval(clockInterval);
+    restartTime();
+}
+
+function restartTime() {
+    pauseTime();
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+    totalSec = 1;
+    hours = hours > 9 ? hours : ('0' + hours);
+    minutes = minutes > 9 ? minutes : ('0' + minutes);
+    seconds = seconds > 9 ? seconds : ('0' + seconds);
+    insertTime();
+}
+
+function insertTime() {
+    numHours.innerText = hours;
+    numMinutes.innerText = minutes;
+    numSeconds.innerText = seconds;
+}
+
 function timer() {
+    clearIntervals();
     removeActiveOpt();
     timerId.classList.add('activeOpt');
     removeArrows();
@@ -80,12 +123,14 @@ function removeArrows() {
 }
 
 function removeFuncBts() {
-    if (timerId.classList.contains('activeOpt') || stopWatchId.classList.contains('activeOpt')) {
-        restart.classList.remove('hide');
-        start.classList.remove('hide');
-    } else {
+    if (clockId.classList.contains('activeOpt')) {
         restart.classList.add('hide');
         start.classList.add('hide');
+        pause.classList.add('hide');
+    } else {
+        restart.classList.remove('hide');
+        start.classList.remove('hide');
+        pause.classList.remove('hide');
     }
 }
 
