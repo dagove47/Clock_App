@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="David Gomez" />
+    <!-- favicon -->
+    <link
+      rel="icon"
+      href="/assets/clock.png"
+      type="image/x-icon"
+      title="Clock icons created by Freepik from www.flaticon.com"
+    />
     <title>Clock App</title>
     <!-- Bootstrap -->
     <link
@@ -37,12 +45,12 @@
         <section class="time">
           <div class="hours numContainer">
             <div class="digitBox">
-              <i
-                class="bi bi-caret-up-fill arrow"
-                onclick="increaseNum()"></i>
+              <i class="bi bi-caret-up-fill arrow" onclick="increaseNum()"></i>
               <p id="numHours" class="number">00</p>
-              <i class="bi bi-caret-down-fill arrow"
-              onclick="decreaseNum()"></i>
+              <i
+                class="bi bi-caret-down-fill arrow"
+                onclick="decreaseNum()"
+              ></i>
             </div>
           </div>
 
@@ -52,11 +60,12 @@
 
           <div class="minutes numContainer">
             <div class="digitBox">
-              <i class="bi bi-caret-up-fill arrow"
-              onclick="increaseNum()"></i>
+              <i class="bi bi-caret-up-fill arrow" onclick="increaseNum()"></i>
               <p id="numMinutes" class="number">00</p>
-              <i class="bi bi-caret-down-fill arrow"
-              onclick="decreaseNum()"></i>
+              <i
+                class="bi bi-caret-down-fill arrow"
+                onclick="decreaseNum()"
+              ></i>
             </div>
           </div>
 
@@ -66,11 +75,12 @@
 
           <div class="seconds numContainer">
             <div class="digitBox">
-              <i class="bi bi-caret-up-fill arrow"
-              onclick="increaseNum()"></i>
+              <i class="bi bi-caret-up-fill arrow" onclick="increaseNum()"></i>
               <p id="numSeconds" class="number">00</p>
-              <i class="bi bi-caret-down-fill arrow"
-              onclick="decreaseNum()"></i>
+              <i
+                class="bi bi-caret-down-fill arrow"
+                onclick="decreaseNum()"
+              ></i>
             </div>
           </div>
         </section>
