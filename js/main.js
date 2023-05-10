@@ -5,29 +5,60 @@ const timerId = document.getElementById('timer');
 const options = document.querySelector('.options');
 const arrow = document.getElementsByClassName('arrow');
 const number = document.querySelector(".number");
+const numHours = document.getElementById('numHours');
+const numMinutes = document.getElementById('numMinutes');
+const numSeconds = document.getElementById('numSeconds');
+const restart = document.querySelector('.restart');
+const start = document.querySelector('.start');
 
-let numHours = 0;
-let numMinutes = 0;
-let numSeconds = 0;
-
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let clockInterval;
 
 function clock() {
     removeActiveOpt();
     clockId.classList.add('activeOpt');
     removeArrows();
-    
+    removeFuncBts();
+
+    clockInterval = setInterval(function() {
+        hours = (new Date().getHours() > 9) ?  new Date().getHours() : ('0' + new Date().getHours());
+        minutes = (new Date().getMinutes() > 9) ?  new Date().getMinutes() : ('0' + new Date().getMinutes());
+        seconds = (new Date().getSeconds() > 9) ?  new Date().getSeconds() : ('0' + new Date().getSeconds());
+        numHours.innerText = hours;
+        numMinutes.innerText = minutes;
+        numSeconds.innerText = seconds;
+    }, 1000);
+}
+
+function stopClock() {
+    clearInterval(clockInterval);
 }
 
 function stopWatch() {
     removeActiveOpt();
     stopWatchId.classList.add('activeOpt');
     removeArrows();
+    removeFuncBts();
+    stopClock();
+
+    hours = 00;
+    minutes = 0;
+    seconds = 0;
+
+    numHours.innerText = hours;
+    numMinutes.innerText = minutes;
+    numSeconds.innerText = seconds;
+
 }
 
 function timer() {
     removeActiveOpt();
     timerId.classList.add('activeOpt');
     removeArrows();
+    removeFuncBts();
+    stopClock();
 }
 
 function removeActiveOpt() {
@@ -45,6 +76,16 @@ function removeArrows() {
         for (let i = 0; arrow.length > i; i++) {
             arrow[i].classList.add('hide');
         }
+    }
+}
+
+function removeFuncBts() {
+    if (timerId.classList.contains('activeOpt') || stopWatchId.classList.contains('activeOpt')) {
+        restart.classList.remove('hide');
+        start.classList.remove('hide');
+    } else {
+        restart.classList.add('hide');
+        start.classList.add('hide');
     }
 }
 
