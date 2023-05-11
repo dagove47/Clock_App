@@ -14,7 +14,8 @@ const start = document.querySelector(".start");
 let hours = 0;
 let minutes = 0;
 let seconds = 0;
-let totalSec = 1;
+let sequence = 1;
+let sequenceTimer = 0;
 let clockInterval;
 let stopWatchInterval;
 let timerInterval;
@@ -51,22 +52,101 @@ function stopWatch() {
     removeArrows();
     removeFuncBts();
 
+    // sequence => 10 milliseconds
+    // milliseconds => seconds box
+    // seconds => minutes box
+    // minutes => hours box
     stopWatchInterval = setInterval(() => {
         if (!isPause) {
-            if (totalSec % 60 === 0) {
+            if (sequence % 100 === 0) {
                 minutes >= 59 ? (minutes = 0) : minutes++;
                 minutes = minutes > 9 ? minutes : "0" + minutes;
             }
-            if (totalSec % 3600 === 0) {
-                hours >= 24 ? (hours = 0) : hours++;
+            if (sequence % 6000 === 0) {
+                hours >= 59 ? (hours = 0) : hours++;
                 hours = hours > 9 ? hours : "0" + hours;
             }
-            seconds >= 59 ? (seconds = 0) : seconds++;
+            seconds >= 99 ? (seconds = 0) : seconds++;
             seconds = seconds > 9 ? seconds : "0" + seconds;
-            totalSec++;
+            sequence++;
+            insertTime();
+        }
+    }, 10);
+}
+
+function timer() {
+    clearIntervals();
+    removeActiveOpt();
+    timerId.classList.add("activeOpt");
+    removeArrows();
+    removeFuncBts();
+
+    timerInterval = setInterval(() => {
+        if (!isPause) {
+            if (sequenceTimer % 60 === 0) {
+                minutes <= 0 ? (minutes = 59) : minutes--;
+                minutes = minutes > 9 ? minutes : "0" + minutes;
+            }
+            if (sequenceTimer % 3600 === 0) {
+                hours <= 0 ? (hours = 24) : hours--;
+                hours = hours > 9 ? hours : "0" + hours;
+            }
+            seconds <= 0 ? (seconds = 59) : seconds--;
+            seconds = seconds > 9 ? seconds : "0" + seconds;
+            
+            if (sequenceTimer == 0) {
+                restartTime();
+                window.alert("Timer Done");
+            } else {
+                sequenceTimer--;
+            }
             insertTime();
         }
     }, 1000);
+}
+
+function increaseNum() {
+    let numId = window.event.target.nextElementSibling.id;
+    switch (numId) {
+        case "numHours":
+            hours >= 24 ? (hours = 0) : hours++;
+            hours = hours > 9 ? hours : "0" + hours;
+            sequenceTimer += 3600;
+            break;
+        case "numMinutes":
+            minutes >= 59 ? (minutes = 0) : minutes++;
+            minutes = minutes > 9 ? minutes : "0" + minutes;
+            sequenceTimer += 60;
+            break;
+        case "numSeconds":
+            seconds >= 59 ? (seconds = 0) : seconds++;
+            seconds = seconds > 9 ? seconds : "0" + seconds;
+            sequenceTimer++;
+            break;
+    }
+    insertTime();
+}
+
+function decreaseNum() {
+    let numId = window.event.target.previousElementSibling.id;
+    switch (numId) {
+        case "numHours":
+            hours <= 0 ? (hours = 24) : hours--;
+            hours = hours > 9 ? hours : "0" + hours;
+            sequenceTimer -= 3600;
+            break;
+        case "numMinutes":
+            minutes <= 0 ? (minutes = 59) : minutes--;
+            minutes = minutes > 9 ? minutes : "0" + minutes;
+            sequenceTimer -= 60;
+            break;
+        case "numSeconds":
+            seconds <= 0 ? (seconds = 59) : seconds--;
+            seconds = seconds > 9 ? seconds : "0" + seconds;
+            sequenceTimer--;
+            break;
+    }
+    insertTime();
 }
 
 function pauseTime() {
@@ -80,7 +160,7 @@ function startTime() {
 function clearIntervals() {
     clearInterval(clockInterval);
     clearInterval(stopWatchInterval);
-    // clearInterval(clockInterval);
+    clearInterval(timerInterval);
     restartTime();
 }
 
@@ -89,7 +169,8 @@ function restartTime() {
     hours = 0;
     minutes = 0;
     seconds = 0;
-    totalSec = 1;
+    sequence = 1;
+    sequenceTimer = 0;
     hours = hours > 9 ? hours : "0" + hours;
     minutes = minutes > 9 ? minutes : "0" + minutes;
     seconds = seconds > 9 ? seconds : "0" + seconds;
@@ -100,15 +181,6 @@ function insertTime() {
     numHours.innerText = hours;
     numMinutes.innerText = minutes;
     numSeconds.innerText = seconds;
-}
-
-function timer() {
-    clearIntervals();
-    removeActiveOpt();
-    timerId.classList.add("activeOpt");
-    removeArrows();
-    removeFuncBts();
-    stopClock();
 }
 
 function removeActiveOpt() {
@@ -141,34 +213,4 @@ function removeFuncBts() {
     }
 }
 
-function increaseNum() {
-    let numId = window.event.target.nextElementSibling.id;
-    switch (numId) {
-        case "numHours":
-            console.log("test");
-            console.log(new Date().getMinutes());
-            break;
-        case "numMinutes":
-            // sss
-            break;
-        case "numSeconds":
-            // sss
-            break;
-    }
-    console.log(window.event);
-    console.log(window.event.target.nextElementSibling);
-    console.log(window.event.target.nextElementSibling.id);
-}
-
-function decreaseNum() {
-    console.log(window.event.target.previousElementSibling);
-}
-
 clock();
-
-// upArrow.addEventListener("click", () => {
-//     // number[0].textContent = "1";
-//     console.log(upArrow.childElementCount);
-// })
-
-// test2
